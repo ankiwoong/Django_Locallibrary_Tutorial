@@ -40,21 +40,21 @@ class BookListView(generic.ListView):
         return context
 
 
-# class BookDetailView(generic.DetailView):
-#     model = Book
-
 # Case 1
-def book_detail_view(request, primary_key):
-    try:
-        book = Book.objects.get(pk=primary_key)
-    except Book.DoesNotExist:
-        raise Http404("Book does not exist")
+# def book_detail_view(request, primary_key):
+#     try:
+#         book = Book.objects.get(pk=primary_key)
+#     except Book.DoesNotExist:
+#         raise Http404("Book does not exist")
 
-    return render(request, "catalog/book_detail.html", context={"book": book})
+#     return render(request, "catalog/book_detail.html", context={"book": book})
 
 
-# Case 2
-def book_detail_view(request, primary_key):
-    book = get_object_or_404(Book, pk=primary_key)
-    return render(request, "catalog/book_detail.html", context={"book": book})
+# # Case 2
+# def book_detail_view(request, primary_key):
+#     book = get_object_or_404(Book, pk=primary_key)
+#     return render(request, "catalog/book_detail.html", context={"book": book})
 
+
+class BookDetailView(generic.DetailView):
+    model = Book
