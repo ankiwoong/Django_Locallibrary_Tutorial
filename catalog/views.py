@@ -1,8 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import generic
-from django.shortcuts import get_object_or_404  # Case 2
 
-from catalog.models import Book, Author, BookInstance, Genre
+from .models import Author, Book, BookInstance, Genre, Language
 
 
 def index(request):
@@ -45,29 +45,42 @@ class BookListView(generic.ListView):
     model = Book
     paginate_by = 10
 
+    def get_queryset(self):
+        return Book.objects.all()[:5]
+
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get the context
-        context = super(BookListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context
-        context["some_data"] = "This is just some data"
+        context = super().get_context_data(**kwargs)
+        # context['additional_data'] = "Une donnée supplémentaire"
         return context
-
-
-# Case 1
-# def book_detail_view(request, primary_key):
-#     try:
-#         book = Book.objects.get(pk=primary_key)
-#     except Book.DoesNotExist:
-#         raise Http404("Book does not exist")
-
-#     return render(request, "catalog/book_detail.html", context={"book": book})
-
-
-# # Case 2
-# def book_detail_view(request, primary_key):
-#     book = get_object_or_404(Book, pk=primary_key)
-#     return render(request, "catalog/book_detail.html", context={"book": book})
 
 
 class BookDetailView(generic.DetailView):
     model = Book
+
+
+class AuthorListView(generic.ListView):
+    model = Author
+    paginate_by = 3
+
+    def query_set(self):
+        return Author.objects.all()[:5]
+
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
+
+
+class LoanedBookByUserListView(LoginRequiredMixin, generic.ListView):
+    """Generic class-based view listing books on loan to current user."""
+
+    model = BookInstance
+    template_name = "catalog/bookinstance_list_borrowed_user.html"
+    paginate_by = 3
+
+    def get_queryset(self):
+        return (
+            BookInstance.objects.filter(borrower=self.request.user)
+            .filter(status__exact="o")
+            .order_by("due_back")
+        )
+
