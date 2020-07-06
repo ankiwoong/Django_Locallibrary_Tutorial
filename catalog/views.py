@@ -70,7 +70,7 @@ class AuthorDetailView(generic.DetailView):
     model = Author
 
 
-class LoanedBookByUserListView(LoginRequiredMixin, generic.ListView):
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing books on loan to current user."""
 
     model = BookInstance
