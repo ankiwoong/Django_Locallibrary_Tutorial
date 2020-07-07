@@ -18,3 +18,9 @@ urlpatterns = [
     # added in part 9
     # directs to renew_book_librarian() in views.py
 ]
+
+urlpatterns += [
+    path("author/create/", views.AuthorCreate.as_view(), name="author_create"),
+    path("author/<int:pk>/update/", views.AuthorUpdate.as_view(), name="author_update"),
+    path("author/<int:pk>/delete/", views.AuthorDelete.as_view(), name="author_delete"),
+]
