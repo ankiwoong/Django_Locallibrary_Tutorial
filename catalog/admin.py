@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Author, Genre, Book, BookInstance
+from .models import Author, Genre, Book, BookInstance, Language
 
 # admin.site.register(Book)
 # admin.site.register(Author)
@@ -42,3 +42,8 @@ class BookInstanceAdmin(admin.ModelAdmin):
         (None, {"fields": ("book", "imprint", "id")}),
         ("Availability", {"fields": ("status", "due_back", "borrower")}),
     )
+
+
+@admin.register(Language)
+class LanguageAdmin(admin.ModelAdmin):
+    pass

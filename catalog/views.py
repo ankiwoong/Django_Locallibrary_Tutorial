@@ -75,24 +75,34 @@ def index(request):
 
 
 class BookListView(generic.ListView):
+    # model = Book
+    # # paginate_by = 10
+    # paginate_by = 2
+    # # context_object_name = 'my_book_list'   # your own name for the list as a template variable
+    # # queryset = Book.objects.filter(title__icontains='red')[:5] # Get 5 books containing the title war
+    # # template_name = 'books/my_arbitrary_template_name_list.html'  # Specify your own template name/location
+    # template_name = "book_list.html"  # Specify your own template name/location
+
+    # def get_queryset(self):
+    #     return Book.objects.filter(title__icontains="yellow")[
+    #         :5
+    #     ]  # Get 5 books containing the title war
+
+    # def get_context_data(self, **kwargs):
+    #     # Call the base implementation first to get the context
+    #     context = super(BookListView, self).get_context_data(**kwargs)
+    #     # Create any data and add it to the context
+    #     context["some_data"] = "This is just some data"
+    #     return context
     model = Book
-    # paginate_by = 10
-    paginate_by = 2
-    # context_object_name = 'my_book_list'   # your own name for the list as a template variable
-    # queryset = Book.objects.filter(title__icontains='red')[:5] # Get 5 books containing the title war
-    # template_name = 'books/my_arbitrary_template_name_list.html'  # Specify your own template name/location
-    template_name = "book_list.html"  # Specify your own template name/location
+    paginate_by = 3
 
     def get_queryset(self):
-        return Book.objects.filter(title__icontains="yellow")[
-            :5
-        ]  # Get 5 books containing the title war
+        return Book.objects.all()[:]
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get the context
-        context = super(BookListView, self).get_context_data(**kwargs)
-        # Create any data and add it to the context
-        context["some_data"] = "This is just some data"
+        context = super().get_context_data(**kwargs)
+
         return context
 
 
@@ -200,4 +210,33 @@ class AuthorUpdate(UpdateView):
 class AuthorDelete(DeleteView):
     model = Author
     success_url = reverse_lazy("authors")
+
+
+class BookCreate(PermissionRequiredMixin, generic.edit.CreateView):
+    permission_required = "catalog.can_mark_returned"
+    model = Book
+
+    fields = "__all__"
+
+
+class BookUpdate(PermissionRequiredMixin, generic.edit.UpdateView):
+
+    permission_required = "catalog.can_mark_returned"
+    model = Book
+
+    fields = [
+        "title",
+        "author",
+        "summary",
+        "genre",
+        "language",
+    ]
+
+
+class BookDelete(PermissionRequiredMixin, generic.edit.DeleteView):
+
+    permission_required = "catalog.can_mark_returned"
+    model = Book
+
+    success_url = reverse_lazy("books")
 

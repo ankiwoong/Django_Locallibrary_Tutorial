@@ -27,6 +27,7 @@
                     <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
                     {% if perms.catalog.can_mark_returned %}
                     <li>can_mark_returned</li>
+                    <li><a href="{% url 'book_create' %}">Book create</a></li>
                     <!-- We can mark a BookInstance as returned. -->
                     <!-- Perhaps add code to link to a "book return" view here. -->
                     {% else %}
