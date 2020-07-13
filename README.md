@@ -25,3 +25,12 @@
 
 ## &#128190;책 빌린 목록
 <img src="https://github.com/ankiwoong/Django_Locallibrary_Tutorial/blob/master/result/Borrowedbooks.png?raw=true">
+
+## 다중도(multiplicities)을 포함한 모델 간의 관계 다이어그램
+<img src="https://mdn.mozillademos.org/files/15646/local_library_model_uml.png">
+
+## 주요 데이터 흐름 그리고 HTTP 요청과 응답을 처리하는 데 필요한 요소 다이어그램
+<img src="https://mdn.mozillademos.org/files/13931/basic-django.png">
+
+## Django 요청 처리 플로우 차트
+<img src="https://mdn.mozillademos.org/files/14205/Form%20Handling%20-%20Standard.png">
