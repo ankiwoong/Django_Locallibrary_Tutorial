@@ -6,7 +6,6 @@
 
 {% if author_list %}
 <ul>
-
     {% for author in author_list %}
     <li>
         <a href="{{ author.get_absolute_url }}">
@@ -14,12 +13,8 @@
         </a>
     </li>
     {% endfor %}
-
 </ul>
 {% else %}
 <p>There are no authors available.</p>
 {% endif %}
-
-
-
 {% endblock %}

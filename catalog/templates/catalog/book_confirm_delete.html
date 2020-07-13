@@ -2,18 +2,13 @@
 
 {% block content %}
 
-<h1>Delete a book</h1>
+<h1>Delete Book</h1>
 
-<p>Are you sure you want to delete the book <b>{{ book }}</b> ?</p>
+<p>Are you sure you want to delete the book: {{ book }}?</p>
 
-<form action="" method="post">
+<form action="" method="POST">
   {% csrf_token %}
-
-  <table>
-    {{ form.as_table }}
-  </table>
-  <a class="btn btn-primary" href="{% url 'books' %}">abandon</a>
-  <input class="btn btn-danger" type="submit" value="Yes, delete">
+  <input type="submit" action="" value="Yes, delete." />
 </form>
 
-{% endblock content %}
+{% endblock %}
